@@ -1,365 +1,247 @@
-<!-- LOGOTIPO DO PROJETO -->
-<div style="display: flex; justify-content: center;">
-   <a href="https://github.com/SEU-USUARIO/SEU-PROJETO">
-     <img src="docs/figures/logo.png" alt="Logo" width="200" height="100">
-   </a>
-</div>
-
-<h3 align="center">NomeDoProjeto</h3>
-
-<div style="display: flex; justify-content: center;">
-  <a href="https://doi.org/SEU-DOI">
-    <img src="https://zenodo.org/badge/SEU_BADGE.svg" alt="DOI">
-  </a>
-</div>
-
-<p align="center">
- Uma descrição curta e genérica do projeto. Substitua por um resumo real quando usar este template.
- <br />
- <a href="https://github.com/SEU-USUARIO/SEU-PROJETO"><strong>Explore os documentos »</strong></a>
- <br />
- <br />
- <a href="https://github.com/SEU-USUARIO/SEU-PROJETO">Ver demonstração</a>
- ·
- <a href="https://github.com/SEU-USUARIO/SEU-PROJETO">Relatar bug</a>
- ·
- <a href="https://github.com/SEU-USUARIO/SEU-PROJETO">Solicitar recurso</a>
-</p>
-
-
-
+# Como instalar/configurar/usar o `Buzz` no `Linux Ubuntu`
 
 ## Resumo
 
-Resumo genérico do projeto. Explique o problema, o objetivo e o valor da solução em 2-4 linhas.
+Este guia descreve como instalar, verificar, usar e remover o `Buzz` no
+`Linux Ubuntu` pelo `Snap`. O pacote do aplicativo é distribuído na
+`Snap Store`; `apt` é usado somente para instalar dependências de 
+integração gráfica e áudio indicadas pelo projeto _upstream_.
 
 ## _Abstract_
 
-_Generic abstract in English. Summarize the purpose, scope, and outputs in 2-4 lines._
-
-
+_This guide describes how to install, verify, use, and remove Buzz on
+`Linux Ubuntu` through `Snap`. The application is distributed through
+the `Snap Store`; `apt` is used only to install audio and graphical 
+integration dependencies listed by the upstream project._
 
 ## Descrição
 
-`<nome_da_aplicacao>`
+### `Buzz`
 
-Colocar a descrição da aplicação/subaplicação aqui.
+O `Buzz` é um aplicativo de transcrição e tradução de áudio e vídeo
+baseado em mecanismos `Whisper`. O projeto informa suporte a arquivos de
+áudio e vídeo, gravação pelo microfone e exportação de transcrições; os
+formatos e recursos disponíveis podem variar conforme a versão instalada.
 
-<!-- COMEÇANDO -->
-### Começando
+## Pré-requisitos
 
-Este template mostra como documentar a configuração local do projeto. Substitua pelos passos reais.
+- `Linux Ubuntu` com `apt` funcional.
 
+- Permissão para usar `sudo` caso seja necessário instalar dependências do sistema.
 
+- Conexão com a _internet_ para consultar repositórios ou obter o aplicativo.
 
-### Pré-requisitos
+- `snapd` instalado e ativo; verificar com `snap version`.
 
-Lista genérica de ferramentas necessárias. Ajuste versões e remova o que não se aplica.
+## Instalação
 
-* [![Python](https://img.shields.io/badge/Python-3.x-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
+1. Abrir o `Terminal Emulator`. Você pode fazer isso pressionando:
 
-* [![Anaconda](https://img.shields.io/badge/Anaconda-4.x-44A833?style=flat-square&logo=anaconda&logoColor=white)](https://www.anaconda.com/)
+    ```text
+    Ctrl + Alt + T
+    ```
 
-* [![Git](https://img.shields.io/badge/Git-2.x-F05032?style=flat-square&logo=git&logoColor=white)](https://git-scm.com/)
+2. Certifique-se de que seu sistema esteja limpo e atualizado.
 
-* [![VS Code](https://img.shields.io/badge/VS%20Code-1.x-007ACC?style=flat-square&logo=visual-studio-code&logoColor=white)](https://code.visualstudio.com/) ou qualquer IDE compatível
+    2.1 Limpar o `cache` do gerenciador de pacotes `apt`. 
+    Especificamente, ele remove todos os arquivos de pacotes (`.deb`) 
+    baixados pelo `apt` e armazenados em `/var/cache/apt/archives/`.
+    Digite o seguinte comando:
 
-<p align="right">(<a href="#readme-top">voltar ao topo</a>)</p>
+    ```bash
+    sudo apt clean
+    ```
 
+    2.2 Remover pacotes `.deb` antigos ou duplicados do `cache` local.
+    É útil para liberar espaço, pois remove apenas os pacotes que não
+    podem mais ser baixados (ou seja, versões antigas de pacotes que
+    foram atualizados). Digite o seguinte comando:
 
+    ```bash
+    sudo apt autoclean
+    ```
 
+    2.3 Remover pacotes que foram automaticamente instalados para
+    satisfazer as dependências de outros pacotes e que não são mais
+    necessários. Digite o seguinte comando:
 
-## Guia de instalação
+    ```bash
+    sudo apt autoremove -y
+    ```
 
-### Instalar o Git
+    2.4 Buscar as atualizações disponíveis para os pacotes que estão
+    instalados em seu sistema. Digite o seguinte comando e pressione
+    `Enter`:
 
-Explique como instalar o Git ou remova esta seção se não for necessária.
+    ```bash
+    sudo apt update
+    ```
 
-<p align="right">(<a href="#readme-top">voltar ao topo</a>)</p>
+    2.5 **Corrigir pacotes quebrados**: Isso atualizará a lista de
+    pacotes disponíveis e tentará corrigir pacotes quebrados ou com
+    dependências ausentes:
 
+    ```bash
+    sudo apt --fix-broken install
+    ```
 
+    2.6 Limpar o `cache` do gerenciador de pacotes `apt` novamente:
 
-## Guia de instalação
+    ```bash
+    sudo apt clean
+    ```
 
-### Instalar o Git
+    2.7 Para ver a lista de pacotes a serem atualizados, digite o
+    seguinte comando e pressione `Enter`:
 
-Reforço do conteúdo ou seção extra. Mantenha ou remova conforme o uso do template.
+    ```bash
+    sudo apt list --upgradable
+    ```
 
-<p align="right">(<a href="#readme-top">voltar ao topo</a>)</p>
+    2.8 Realmente atualizar os pacotes instalados para as suas versões
+    mais recentes, com base na última vez que você executou
+    `sudo apt update`. Digite o seguinte comando e pressione `Enter`:
 
+    ```bash
+    sudo apt full-upgrade -y
+    ```
 
+Os comandos de manutenção do item 2 são separados da instalação do
+`Buzz` e não foram executados. Em particular, `apt autoremove` pode
+remover dependências de outros aplicativos, e `apt full-upgrade` pode
+atualizar ou remover pacotes do sistema; revisar as propostas do `apt`
+antes de confirmá-las.
 
-#### `Windows` [2]
+3. Atualizar os índices de pacotes e instalar as dependências de
+áudio/gráficas indicadas pelo projeto:
 
-Explique como configurar SSH no Windows (ou ajuste para o provedor desejado).
+    ```bash
+    sudo apt update
+    sudo apt-get install libportaudio2 libcanberra-gtk-module libcanberra-gtk3-module -y
+    ```
 
-1. Verifique se o Git está instalado.
-2. Abra o Git Bash.
-3. Gere uma chave SSH (`ssh-keygen -t rsa -C "seu_email@exemplo.com"`).
-4. Adicione a chave no provedor (GitHub/GitLab/Bitbucket).
+4. Instalar o aplicativo Buzz pela Snap Store:
 
-<p align="right">(<a href="#readme-top">voltar ao topo</a>)</p>
+    ```bash
+    sudo snap install buzz
+    ```
 
+5. Confirmar a instalação:
 
+    ```bash
+    snap list buzz
+    ```
 
-### Atualizar pacotes `pip` e `setuptools` [3]
+### Código completo para configurar/instalar/usar
 
-Exemplo genérico de atualização de pacotes:
+1. Abrir o `Terminal Emulator` com `Ctrl + Alt + T`.
+2. Copiar e colar o bloco abaixo. O `apt` instala somente dependências;
+o `Buzz` é instalado pelo `Snap`.
 
-1. `pip install --upgrade pip`
-2. `pip install --upgrade setuptools`
-3. `pip install --upgrade wheel`
+    ```bash
+    sudo apt update
+    sudo apt-get install libportaudio2 libcanberra-gtk-module libcanberra-gtk3-module -y
+    sudo snap install buzz
+    snap list buzz
+    ```
 
+## Verificação da instalação
 
+1. Verificar se o `Snap` está instalado e consultar a revisão instalada:
 
-### Clonar o repositório do Git e instalar dependências
+    ```bash
+    snap list buzz
+    ```
 
-#### `Linux`
+    A saída deve identificar o pacote `buzz` e sua revisão; não presumir
+    um número de versão específico. Para abrir o aplicativo,
+    selecioná-lo no menu de aplicativos do ambiente gráfico.
 
-1. **Clone o repositório:**
+## Configuração e utilização
 
-  - **Pelo terminal:** `git clone git@github.com:SEU-USUARIO/SEU-PROJETO.git`
+A documentação _upstream_ descreve a importação de arquivos de áudio e
+vídeo, seleção de um mecanismo/modelo de reconhecimento e exportação do
+texto. As opções concretas dependem da versão e do formato instalado.
+Consultar a documentação oficial antes de processar arquivos
+confidenciais ou configurar serviços de nuvem: o projeto também
+documenta uso opcional da API OpenAI, que envia áudio ao serviço remoto.
 
-  - **(Ou)** baixar o `.zip` na página do GitHub
+## Desinstalação
 
-  <p align="right">(<a href="#readme-top">voltar ao topo</a>)</p>
+1. Verificar a instalação e confirmar que o aplicativo veio do Snap:
 
+    ```bash
+    snap list buzz
+    ```
 
+2. Remover o aplicativo pelo mesmo gerenciador:
 
-#### `Windows`
+    ```bash
+    sudo snap remove buzz
+    ```
 
-1. **Clone o repositório:**
+3. Verificar a remoção:
 
-  - **Pelo terminal:** `git clone git@github.com:SEU-USUARIO/SEU-PROJETO.git`
+    ```bash
+    snap list buzz
+    ```
 
-  - (Ou) baixar o `.zip` na página do GitHub
+   Após a remoção, o `Snap` deve informar que não há pacote `buzz`
+   instalado. A remoção do `Snap` não garante a exclusão de todos os
+   dados pessoais ou modelos eventualmente baixados; revisar esses dados
+   separadamente antes de apagá-los. `apt remove` e `apt purge` não se
+   aplicam ao aplicativo instalado como Snap.
 
-  <p align="right">(<a href="#readme-top">voltar ao topo</a>)</p>
+### Código completo para desinstalar
 
+1. Abrir o `Terminal Emulator`:
 
+    ```bash
+    Ctrl + Alt + T
+    ```
 
-## Como executar a aplicação
+2. Copiar e colar o bloco abaixo. A primeira consulta permite confirmar
+o pacote antes da remoção; a última confirma o estado posterior.
 
-### Executar a partir do `Terminal Emulator`
+    ```bash
+    snap list buzz
+    sudo snap remove buzz
+    snap list buzz
+    ```
 
-1. Exemplo genérico de execução:
+## Compatibilidade
 
-```bash
-python3 main.py --input caminho/para/arquivo --output caminho/para/saida
-```
+O sistema inspecionado é `Linux Ubuntu 22.04.5 LTS` (`Jammy`). O projeto
+_upstream_ e a `Snap Store` documentam a distribuição do `Buzz` para
+`Linux Ubuntu` pelo `Snap`. As dependências do sistema são instaladas
+via `apt`, mas o aplicativo em `si` é o Snap `buzz`.
 
-<p align="right">(<a href="#readme-top">voltar ao topo</a>)</p>
-
-
-
-
-### Executar a partir da `Graphical User Interface (GUI)`
-
-1. Exemplo genérico de execução:
-
-```bash
-python3 scripts/app_gui.py
-```
-
-
-
-## Mostrar ajuda
-
-1. Exemplo genérico de ajuda:
-
-```bash
-python3 main.py --help
-```
-
-
-
-### Exemplo de Saída Esperada
-
-Exemplo genérico (substitua pelo help real do projeto):
-
-```bash
-usage: main.py [-h] --input INPUT [--output OUTPUT]
-```
-
-
-
-## O que o aplicativo faz?
-
-Describe in English, at a high level, what the application does and the main outputs.
-
-- Example capability 1
-- Example capability 2
-- Example capability 3
-
-
-
-
-## O que o aplicativo exibe como saída(s)
-
-# Relatório de Análise de Dados
-
-## 1. Introdução
-
-- Objetivo da análise: descrição genérica.
-- Descrição do conjunto de dados analisado: origem, tamanho, formato.
-- Metodologia utilizada para a análise.
-
-## 2. Estatísticas Gerais do Conjunto de Dados
-
-- Número total de variáveis.
-- Número total de registros.
-- Tipos de dados por variável.
-- Resumo da ocupação de memória.
-
-## 3. Qualidade dos Dados
-
-- Valores faltantes: contagem e percentual.
-- Valores únicos por variável.
-- Distribuição de valores nulos ou infinitos.
-- Detecção de espaços em branco no início/fim.
-
-## 4. Estatísticas Descritivas das Variáveis Numéricas
-
-- Contagem de valores válidos.
-- Média, mediana, moda.
-- Desvio padrão e variância.
-- Valor mínimo e máximo.
-- Quartis.
-
-## 5. Análise de Outliers
-
-- Critério de outliers (ex.: 1.5x IQR).
-- Variáveis com maior presença de outliers.
-
-## 6. Correlações Entre Variáveis
-
-- Matriz de correlação.
-- Variáveis altamente correlacionadas.
-
-## 7. Estatísticas de Variáveis Categóricas
-
-- Contagem de ocorrências por categoria.
-- Percentual de distribuição por categoria.
-
-## 8. Análise de Tendências Temporais (se aplicável)
-
-- Distribuição temporal dos dados.
-- Identificação de padrões sazonais.
-
-## 9. Conclusões e Próximos Passos
-
-- Resumo dos principais insights.
-- Sugestões de melhorias/transformações.
-- Próximos passos.
-
-
-## Gráficos Essenciais no Relatório
-
-- Histogramas
-- Boxplots
-- Heatmap de correlação
-- Gráfico de dispersão
-- Gráficos de barras
-- Linha do tempo (se aplicável)
-
-
-
-## 1. Função da Aplicação
-
-Descrição genérica da função principal do módulo.
-
-### 1.1 Entrada(s)
-
-1. Formatos de arquivo suportados (ex.: `.csv`, `.xlsx`).
-
-### 1.2 Saída(s)
-
-1. Descrição das saídas esperadas.
-
-
-
-## 2. Observação(ões)
-
-1. Observações gerais e boas práticas.
-2. Restrições conhecidas.
-
-
-
-# 3. Futura(s) Melhoria(s)
-
-- Lista de melhorias planejadas.
-
-
-
-<!-- LICENÇA -->
 ## Licença
 
-Distribuído sob a licença `MIT`. Consulte `LICENSE.txt` para obter mais informações.
+O projeto upstream do Buzz declara licença MIT. A licença deste
+repositório de documentação está no arquivo `LICENSE.txt`; são escopos
+distintos.
 
-<p align="right">(<a href="#readme-top">voltar ao topo</a>)</p>
+## Contato e suporte
 
-
-
-<!-- ROTEIRO -->
-## Roteiro
-
-- [ ] Adicionar registro de alterações
-- [ ] Adicionar links de volta ao topo
-- [ ] Adicionar modelos adicionais com exemplos
-- [ ] Suporte multilíngue
-
-Consulte os problemas abertos para obter uma lista completa dos recursos propostos.
-
-<p align="right">(<a href="#readme-top">voltar ao topo</a>)</p>
-
-
-
-
-<!-- CONTRIBUIÇÔES -->
-## Contribuições
-
-Explique como contribuir (fork, branch, PR, issues).
-
-1. Bifurque o projeto
-2. Crie sua ramificação (`git checkout -b feature/NovaFuncionalidade`)
-3. Confirme suas alterações (`git commit -m 'Describe change'`)
-4. Envie para a filial (`git push origin feature/NovaFuncionalidade`)
-5. Abra uma solicitação `pull`
-
-<p align="right">(<a href="#readme-top">voltar ao topo</a>)</p>
-
-
-
-
-<!-- ACKNOWLEDGMENTS -->
-## Agradecimentos
-
-* [Best README Template](https://github.com/othneildrew/Best-README-Template?tab=readme-ov-file)
-
-* [Choose an Open Source License](https://choosealicense.com)
-
-* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
-
-* [Malven's Flexbox Cheatsheet](https://flexbox.malven.co/)
-
-* [Malven's Grid Cheatsheet](https://grid.malven.co/)
-
-* [Img Shields](https://shields.io)
-
-* [GitHub Pages](https://pages.github.com)
-
-* [Font Awesome](https://fontawesome.com)
-
-* [React Icons](https://react-icons.github.io/react-icons/search)
-
-<p align="right">(<a href="#readme-top">voltar ao topo</a>)</p>
-
-
-
+Consultar o [repositório oficial do Buzz](https://github.com/chidiwilliams/buzz) e a [documentação do Buzz](https://chidiwilliams.github.io/buzz/).
 
 ## Referências
 
-[1] Fonte ou documentação relevante.
-[2] Artigo, tutorial ou manual adicional.
-[3] Outro link útil.
+[1] CHIDI WILLIAMS.
+**Buzz**.
+Disponível em: <https://github.com/chidiwilliams/buzz>.
+GitHub.
+Acessado em: 30/10/2026.
 
+[2] CANONICAL.
+**Install Buzz on Linux**.
+Disponível em: <https://snapcraft.io/buzz>.
+Snap Store.
+Acessado em: 30/10/2026.
+
+[3] OPENAI.
+**Como instalar o Buzz no Linux Ubuntu pelo Terminal Emulator**.
+Disponível em: <https://chatgpt.com/g/g-p-6980caf949648191ad6acfcdbe590f9e-instalar/c/6ae4b306-4f84-83e9-b3e4-61a025034ba3>.
+ChatGPT. Conteúdo não acessado: a página não foi recuperada nesta sessão.
+Acessado em: 30/10/2026.
